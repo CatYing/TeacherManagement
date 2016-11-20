@@ -54,7 +54,7 @@ class StudentInfoUpdateView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin,
     context_object_name = 'info'
     fields = ['student_id', 'e_mail', 'cellphone']
     template_name = 'authentication/update.html'
-    success_url = reverse_lazy('stu_detail')
+    success_url = reverse_lazy('detail')
 
     def test_func(self):
         return self.request.user.myuser.identity == 1
