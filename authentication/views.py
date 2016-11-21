@@ -47,6 +47,10 @@ class InfoDetailView(LoginRequiredMixin, FrontMixin, DetailView):
     def get_object(self, queryset=None):
         return self.request.user.myuser
 
+    def get_context_data(self, **kwargs):
+        context = super(InfoDetailView, self).get_context_data(**kwargs)
+        context['active'] = ''
+
 
 class StudentInfoUpdateView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin, UpdateView):
     login_url = reverse_lazy('login')
