@@ -9,3 +9,8 @@ from website.mixin import FrontMixin
 class IndexView(LoginRequiredMixin, FrontMixin, TemplateView):
     template_name = 'website/index.html'
     login_url = reverse_lazy('login')
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['active'] = 'index'
+        return context

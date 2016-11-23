@@ -50,10 +50,10 @@
 <!--sidebar-menu-->
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
     <ul>
-        <li class=""><a href="{% url 'index' %}"><i class="icon icon-home"></i> <span>首页</span></a></li>
-        <li><a href=""><i class="icon icon-signal"></i> <span>教师列表</span></a></li>
-        <li><a href=""><i class="icon icon-inbox"></i> <span>查看当前预约</span></a></li>
-        <li><a href=""><i class="icon icon-th"></i> <span>个人资料</span></a></li>
+        <li id="index"><a href="{% url 'index' %}"><i class="icon icon-home"></i> <span>首页</span></a></li>
+        <li id="list"><a href=""><i class="icon icon-signal"></i><span>教师列表</span></a></li>
+        <li id="history"><a href=""><i class="icon icon-inbox"></i> <span>查看当前预约</span></a></li>
+        <li id="detail"><a href=""><i class="icon icon-th"></i> <span>个人资料</span></a></li>
         <li class="submenu"><a href="#"><i class="icon icon-th-list"></i> <span>友情链接</span></a>
             <ul>
                 <li><a href="">友链1</a></li>
@@ -70,11 +70,13 @@
 <!--main-container-part-->
 <div id="content">
 
+    {% block content %}
 
+    {% endblock %}
 
     <!--Footer-part-->
     <div class="row-fluid">
-        <div id="footer" class="span12"> 2016 &copy; CatYing All rights reserved</div>
+        <div id="footer" class="span12"> 2016 &copy; HIT Boating without Oars All rights reserved</div>
     </div>
     <!--end-Footer-part-->
 
@@ -99,6 +101,10 @@
     <script src="{% static 'js/matrix.popover.js' %}"></script>
     <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'js/matrix.tables.js' %}"></script>
+
+    <script>
+        $('#{{ active }}').addClass('active');
+    </script>
 
     <script type="text/javascript">
         // This function is called from the pop-up menus to transfer to
