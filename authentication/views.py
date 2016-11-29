@@ -5,7 +5,6 @@ from django.contrib import auth
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import HttpResponseRedirect
 from django.views.generic import DetailView, UpdateView
-from django.views.generic import TemplateView
 
 from authentication.models import *
 from website.mixin import FrontMixin
