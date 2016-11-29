@@ -49,7 +49,8 @@ class InfoDetailView(LoginRequiredMixin, FrontMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(InfoDetailView, self).get_context_data(**kwargs)
-        context['active'] = ''
+        context['active'] = 'detail'
+        return context
 
 
 class StudentInfoUpdateView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin, UpdateView):
@@ -68,8 +69,25 @@ class StudentInfoUpdateView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin,
 
     def get_context_data(self, **kwargs):
         context = super(StudentInfoUpdateView, self).get_context_data(**kwargs)
+        context['active'] = 'detail'
         return context
 
 
-class TeacherInfoUpdateView(TemplateView):
-    pass
+class TeacherInfoUpdateView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin, UpdateView):
+    login_url = reverse_lazy('login')
+    model = TeacherInfo
+    context_object_name = 'info'
+    fields = ['e-mail', 'cellphone', 'address', 'description']
+
+    def test_func(self):
+        return self.request.user.myuser.identity == 2
+
+    def get_object(self, queryset=None):
+        return self.request.myuser.studentinfo
+
+    def get_context_data(self, **kwargs):
+        context = super(TeacherInfoUpdateView, self).get_context_data(**kwargs)
+        context['active'] = 'detail'
+        return context
+
+

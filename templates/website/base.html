@@ -33,12 +33,19 @@
         <li class="" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages"
                                            class="dropdown-toggle"><i class="icon icon-envelope"></i> <span
                 class="text">通知</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+            {% if myuser.identity == 1 %}
             <ul class="dropdown-menu">
                 <li><a class="sAdd" title="" href="#"><i class="icon-plus"></i>教师信息更新</a></li>
                 <li class="divider"></li>
                 <li><a class="sInbox" title="" href="#"><i class="icon-envelope"></i>预约进度更新</a></li>
                 <li class="divider"></li>
             </ul>
+            {% else %}
+            <ul class="dropdown-menu">
+                <li><a class="sAdd" title="" href="#"><i class="icon-plus"></i>预约信息</a></li>
+                <li class="divider"></li>
+            </ul>
+            {% endif %}
         </li>
         <li class=""><a href="{% url 'logout' %}"><i class="icon icon-share-alt"></i> <span
                 class="text">登出</span></a>
@@ -61,8 +68,6 @@
                 <li><a href="">友链3</a></li>
             </ul>
         </li>
-
-
     </ul>
 </div>
 <!--sidebar-menu-->
