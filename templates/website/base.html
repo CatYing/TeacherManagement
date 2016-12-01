@@ -13,7 +13,7 @@
     <link href="{% static 'font-awesome/css/font-awesome.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" href="{% static 'css/jquery.gritter.css' %}"/>
     <link href="{% static 'css/google.css' %}" rel='stylesheet' type='text/css'>
-{#    <link rel="stylesheet" href="{% static 'css/main.css' %}">#}
+    {#    <link rel="stylesheet" href="{% static 'css/main.css' %}">#}
 </head>
 <body>
 
@@ -64,9 +64,9 @@
         <li id="detail"><a href="{% url 'detail' %}"><i class="icon icon-th"></i> <span>个人资料</span></a></li>
         <li class="submenu"><a href="#"><i class="icon icon-th-list"></i> <span>友情链接</span></a>
             <ul>
-                <li><a href="">友链1</a></li>
-                <li><a href="">友链2</a></li>
-                <li><a href="">友链3</a></li>
+                {% for link in link_list %}
+                    <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+                {% endfor %}
             </ul>
         </li>
     </ul>
