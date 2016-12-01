@@ -7,10 +7,10 @@
     <div class="container-fluid">
         <div class="row-fluid">
 
-            <div class="span6">
+            <div class="span12">
                 <div class="widget-box">
                     <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
-                        <h5>Personal-info</h5>
+                        <h5>个人信息更新</h5>
                     </div>
                     <div class="widget-content nopadding">
                         <form method="POST" class="form-horizontal">
@@ -18,51 +18,51 @@
                             <div class="control-group">
                                 <label class="control-label">学号</label>
                                 <div class="controls">
-                                    <input type="text" class="span11" placeholder="学号" name="student_id"/>
+                                    <input type="text" class="span11" value="{{ myuser.studentinfo.student_id }}" name="student_id"/>
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">E-mail:</label>
+                                <label class="control-label">E-mail</label>
                                 <div class="controls">
-                                    <input type="email" class="span11" placeholder="邮箱" name="e_mail"/>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label">手机:</label>
-                                <div class="controls">
-                                    <input type="text" class="span11" placeholder="手机" name="'cellphone"/>
+                                    <input type="email" class="span11" value="{{ myuser.studentinfo.e_mail }}" name="e_mail"/>
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label">学院:</label>
+                                <label class="control-label">手机</label>
                                 <div class="controls">
-                                    <input type="text" class="span11" placeholder="学院" name="college"/>
+                                    <input type="text" class="span11" value="{{ myuser.studentinfo.cellphone }}" name="cellphone"/>
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label">Description field:</label>
+                                <label class="control-label">学院</label>
                                 <div class="controls">
-                                    <input type="text" class="span11"/>
-                                    <span class="help-block">Description field</span></div>
+                                    <input type="text" class="span11" value="{{ myuser.studentinfo.college }}" name="college"/>
+                                </div>
                             </div>
+
                             <div class="control-group">
-                                <label class="control-label">Message</label>
+                                <label class="control-label">年级</label>
                                 <div class="controls">
-                                    <textarea class="span11"></textarea>
+                                    <input type="number" class="span11" value="{{ myuser.studentinfo.grade }}" name="grade"/>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">个人介绍</label>
+                                <div class="controls">
+                                    <textarea class="span11" name="description"></textarea>
+                                    <span class="help-block">个人介绍</span>
                                 </div>
                             </div>
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-success">Save</button>
+                                <input type="submit" class="btn btn-success">
                             </div>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
-
-
+    </div>
 {% endblock %}
