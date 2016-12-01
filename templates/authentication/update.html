@@ -1,0 +1,68 @@
+{% extends 'website/base.html' %}
+{% load staticfiles %}
+{% block title %}更新信息{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+
+            <div class="span6">
+                <div class="widget-box">
+                    <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
+                        <h5>Personal-info</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <form method="POST" class="form-horizontal">
+                            {% csrf_token %}
+                            <div class="control-group">
+                                <label class="control-label">学号</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" placeholder="学号" name="student_id"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">E-mail:</label>
+                                <div class="controls">
+                                    <input type="email" class="span11" placeholder="邮箱" name="e_mail"/>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">手机:</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" placeholder="手机" name="'cellphone"/>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">学院:</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" placeholder="学院" name="college"/>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Description field:</label>
+                                <div class="controls">
+                                    <input type="text" class="span11"/>
+                                    <span class="help-block">Description field</span></div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Message</label>
+                                <div class="controls">
+                                    <textarea class="span11"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+{% endblock %}

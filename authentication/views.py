@@ -56,7 +56,7 @@ class StudentInfoUpdateView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin,
     login_url = reverse_lazy('login')
     model = StudentInfo
     context_object_name = 'info'
-    fields = ['student_id', 'e_mail', 'cellphone']
+    fields = ['student_id', 'e_mail', 'cellphone', 'college', 'grade', 'description']
     template_name = 'authentication/update.html'
     success_url = reverse_lazy('detail')
 
