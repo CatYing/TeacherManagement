@@ -13,7 +13,7 @@
     <link href="{% static 'font-awesome/css/font-awesome.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" href="{% static 'css/jquery.gritter.css' %}"/>
     <link href="{% static 'css/google.css' %}" rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/main.css' %}">#}
 </head>
 <body>
 
@@ -61,7 +61,7 @@
         <li id="index"><a href="{% url 'index' %}"><i class="icon icon-home"></i> <span>首页</span></a></li>
         <li id="list"><a href=""><i class="icon icon-signal"></i><span>教师列表</span></a></li>
         <li id="history"><a href=""><i class="icon icon-inbox"></i> <span>查看当前预约</span></a></li>
-        <li id="detail"><a href=""><i class="icon icon-th"></i> <span>个人资料</span></a></li>
+        <li id="detail"><a href="{% url 'detail' %}"><i class="icon icon-th"></i> <span>个人资料</span></a></li>
         <li class="submenu"><a href="#"><i class="icon icon-th-list"></i> <span>友情链接</span></a>
             <ul>
                 <li><a href="">友链1</a></li>
