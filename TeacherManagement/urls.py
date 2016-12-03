@@ -21,6 +21,7 @@ from TeacherManagement import settings
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include('authentication.urls')),
+    url(r'^appointment/', include('appointment.urls')),
     url(r'^', include('website.urls')),
 ]
 
