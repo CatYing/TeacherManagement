@@ -13,53 +13,103 @@
                         <h5>个人信息更新</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <form method="POST" class="form-horizontal">
-                            {% csrf_token %}
-                            <div class="control-group">
-                                <label class="control-label">学号</label>
-                                <div class="controls">
-                                    <input type="text" class="span11" value="{{ myuser.studentinfo.student_id }}" name="student_id"/>
+                        {% if myuser.identity == 1 %}
+                            <form method="POST" class="form-horizontal">
+                                {% csrf_token %}
+                                <div class="control-group">
+                                    <label class="control-label">学号</label>
+                                    <div class="controls">
+                                        <input type="text" class="span11" value="{{ info.student_id }}"
+                                               name="student_id"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label">E-mail</label>
-                                <div class="controls">
-                                    <input type="email" class="span11" value="{{ myuser.studentinfo.e_mail }}" name="e_mail"/>
+                                <div class="control-group">
+                                    <label class="control-label">E-mail</label>
+                                    <div class="controls">
+                                        <input type="email" class="span11" value="{{ info.e_mail }}" name="e_mail"/>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="control-group">
-                                <label class="control-label">手机</label>
-                                <div class="controls">
-                                    <input type="text" class="span11" value="{{ myuser.studentinfo.cellphone }}" name="cellphone"/>
+                                <div class="control-group">
+                                    <label class="control-label">手机</label>
+                                    <div class="controls">
+                                        <input type="text" class="span11" value="{{ info.cellphone }}"
+                                               name="cellphone"/>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="control-group">
-                                <label class="control-label">学院</label>
-                                <div class="controls">
-                                    <input type="text" class="span11" value="{{ myuser.studentinfo.college }}" name="college"/>
+                                <div class="control-group">
+                                    <label class="control-label">学院</label>
+                                    <div class="controls">
+                                        <input type="text" class="span11" value="{{ info.college }}" name="college"/>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="control-group">
-                                <label class="control-label">年级</label>
-                                <div class="controls">
-                                    <input type="number" class="span11" value="{{ myuser.studentinfo.grade }}" name="grade"/>
+                                <div class="control-group">
+                                    <label class="control-label">年级</label>
+                                    <div class="controls">
+                                        <input type="number" class="span11" value="{{ info.grade }}" name="grade"/>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="control-group">
-                                <label class="control-label">个人介绍</label>
-                                <div class="controls">
-                                    <textarea class="span11" name="description"></textarea>
-                                    <span class="help-block">个人介绍</span>
+                                <div class="control-group">
+                                    <label class="control-label">个人介绍</label>
+                                    <div class="controls">
+                                        <textarea class="span11" name="description"></textarea>
+                                        <span class="help-block">个人介绍</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-actions">
-                                <input type="submit" class="btn btn-success">
-                            </div>
-                        </form>
+                                <div class="form-actions">
+                                    <input type="submit" class="btn btn-success">
+                                </div>
+                            </form>
+                        {% elif myuser.identity == 2 %}
+
+                            <form method="POST" class="form-horizontal">
+                                {% csrf_token %}
+                                <div class="control-group">
+                                    <label class="control-label">工号</label>
+                                    <div class="controls">
+                                        <input type="text" class="span11" value="{{ info.teacher_id }}"
+                                               name="teacher_id"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">E-mail</label>
+                                    <div class="controls">
+                                        <input type="email" class="span11" value="{{ info.e_mail }}" name="e_mail"/>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">手机</label>
+                                    <div class="controls">
+                                        <input type="text" class="span11" value="{{ info.cellphone }}"
+                                               name="cellphone"/>
+                                    </div>
+                                </div>
+
+
+                                <div class="control-group">
+                                    <label class="control-label">办公地点</label>
+                                    <div class="controls">
+                                        <input type="text" class="span11" value="{{ info.address }}" name="address"/>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">个人介绍</label>
+                                    <div class="controls">
+                                        <textarea class="span11" name="description"></textarea>
+                                        <span class="help-block">个人介绍</span>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <input type="submit" class="btn btn-success">
+                                </div>
+                            </form>
+
+                        {% endif %}
                     </div>
                 </div>
             </div>

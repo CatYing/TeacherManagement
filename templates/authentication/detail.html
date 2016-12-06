@@ -12,6 +12,7 @@
                     <div class="widget-title"><span class="icon"> <i class="icon-briefcase"></i> </span>
                         <h5>用户信息</h5>
                     </div>
+                    {% if myuser.identity == 1 %}
                     <div class="widget-content">
                         <div class="row-fluid">
                             <div class="span6">
@@ -30,7 +31,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><h5 style="font-weight: 400;">邮箱：{{ myuser.studentinfo.e_mail }}</h5></td>
+                                        <td><h5 style="font-weight: 400;">邮箱：{{ myuser.studentinfo.e_mail }}</h5>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -42,7 +44,8 @@
                                         <td><h4>个人简介</h4></td>
                                     </tr>
                                     <tr>
-                                        <td><h5 style="font-weight: 400;">{{ myuser.studentinfo.description }}</h5></td>
+                                        <td><h5 style="font-weight: 400;">{{ myuser.studentinfo.description }}</h5>
+                                        </td>
                                     </tr>
 
                                     </tbody>
@@ -53,11 +56,64 @@
                             <div class="span12">
                                 <div class="pull-right">
                                     <br>
-                                    <a class="btn btn-primary btn-large pull-right" href="{% url 'stu_update' %}">更改个人信息</a>
+                                    <a class="btn btn-primary btn-large pull-right"
+                                       href="{% url 'stu_update' %}">更改个人信息</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% elif myuser.identity == 2 %}
+                    <div class="widget-content">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <table class="">
+                                    <tbody>
+                                    <tr>
+                                        <td><h4>{{ myuser.name }}</h4></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><h5 style="font-weight: 400;">电话：{{ myuser.teacherinfo.cellphone }}</h5>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><h5 style="font-weight: 400;">邮箱：{{ myuser.teacherinfo.e_mail }}</h5>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><h5 style="font-weight: 400;">办公地点：{{ myuser.teacherinfo.address }}</h5>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="span6">
+                                <table class="">
+                                    <tbody>
+                                    <tr>
+                                        <td><h4>个人简介</h4></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h5 style="font-weight: 400;">{{ myuser.teacherinfo.description }}</h5>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="pull-right">
+                                    <br>
+                                    <a class="btn btn-primary btn-large pull-right"
+                                       href="{% url 'tea_update' %}">更改个人信息</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
                 </div>
             </div>
         </div>

@@ -1,0 +1,107 @@
+{% extends 'website/base.html' %}
+{% load staticfiles %}
+{% block title %}用户详情{% endblock %}
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title"><span class="icon"> <i class="icon-briefcase"></i> </span>
+                        <h5>用户信息</h5>
+                    </div>
+                    {% if theuser.identity == 1 %}
+                        <div class="widget-content">
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <table class="">
+                                        <tbody>
+                                        <tr>
+                                            <td><h4>{{ theuser.name }}</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5 style="font-weight: 400;">{{ theuser.studentinfo.college }}&nbsp;{{ theuser.studentinfo.grade }}
+                                                    级</h5></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5 style="font-weight: 400;">
+                                                电话：{{ theuser.studentinfo.cellphone }}</h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5 style="font-weight: 400;">邮箱：{{ theuser.studentinfo.e_mail }}</h5>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="span6">
+                                    <table class="">
+                                        <tbody>
+                                        <tr>
+                                            <td><h4>个人简介</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5 style="font-weight: 400;">{{ theuser.studentinfo.description }}</h5>
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% elif theuser.identity == 2 %}
+                        <div class="widget-content">
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <table class="">
+                                        <tbody>
+                                        <tr>
+                                            <td><h4>{{ theuser.name }}</h4></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><h5 style="font-weight: 400;">
+                                                电话：{{ theuser.teacherinfo.cellphone }}</h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5 style="font-weight: 400;">邮箱：{{ theuser.teacherinfo.e_mail }}</h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5 style="font-weight: 400;">
+                                                办公地点：{{ theuser.teacherinfo.address }}</h5>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="span6">
+                                    <table class="">
+                                        <tbody>
+                                        <tr>
+                                            <td><h4>个人简介</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5 style="font-weight: 400;">{{ theuser.teacherinfo.description }}</h5>
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

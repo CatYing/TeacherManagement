@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib import auth
 from django.core.urlresolvers import reverse_lazy
@@ -11,6 +12,8 @@ from website.mixin import FrontMixin
 
 
 def login(request):
+    if request.GET.get('denied'):
+        return render(request, 'website/denied.html', context={'myuser': request.user.myuser})
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse_lazy("index"))
     else:
@@ -52,13 +55,14 @@ class InfoDetailView(LoginRequiredMixin, FrontMixin, DetailView):
         return context
 
 
-class StudentInfoUpdateView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin, UpdateView):
+class StudentInfoUpdateView(UserPassesTestMixin, FrontMixin, UpdateView):
     login_url = reverse_lazy('login')
     model = StudentInfo
     context_object_name = 'info'
     fields = ['student_id', 'e_mail', 'cellphone', 'college', 'grade', 'description']
     template_name = 'authentication/update.html'
     success_url = reverse_lazy('detail')
+    redirect_field_name = 'denied'
 
     def test_func(self):
         return self.request.user.myuser.identity == 1
@@ -72,17 +76,20 @@ class StudentInfoUpdateView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin,
         return context
 
 
-class TeacherInfoUpdateView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin, UpdateView):
+class TeacherInfoUpdateView(UserPassesTestMixin, FrontMixin, UpdateView):
     login_url = reverse_lazy('login')
     model = TeacherInfo
     context_object_name = 'info'
-    fields = ['e-mail', 'cellphone', 'address', 'description']
+    fields = ['e_mail', 'cellphone', 'address', 'description']
+    template_name = 'authentication/update.html'
+    success_url = reverse_lazy('detail')
+    redirect_field_name = 'denied'
 
     def test_func(self):
         return self.request.user.myuser.identity == 2
 
     def get_object(self, queryset=None):
-        return self.request.myuser.studentinfo
+        return self.request.user.myuser.teacherinfo
 
     def get_context_data(self, **kwargs):
         context = super(TeacherInfoUpdateView, self).get_context_data(**kwargs)
