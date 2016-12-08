@@ -1,12 +1,8 @@
-from django.http import Http404
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.views.generic import DetailView
-from authentication.models import *
-from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.urlresolvers import reverse_lazy
-# Create your views here.
+from django.views.generic import DetailView
+from django.views.generic import ListView, TemplateView
+from appointment.models import *
 from website.mixin import FrontMixin
 
 
@@ -39,3 +35,21 @@ class MyUserDetailView(LoginRequiredMixin, FrontMixin, DetailView):
         context = super(MyUserDetailView, self).get_context_data(**kwargs)
         context['active'] = 'list'
         return context
+
+
+class AppointmentPreviewView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin, DetailView):
+    template_name = 'appointment/preview.html'
+    context_object_name = 'teacher'
+    model = MyUser
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'denied'
+
+    def test_func(self):
+        return self.request.user.myuser.identity == 1
+
+    def get_context_data(self, **kwargs):
+        context = super(AppointmentPreviewView, self).get_context_data(**kwargs)
+        context['active'] = 'list'
+        context['time_list'] = TeacherPeriod.objects.filter(pk=self.kwargs.get(self.pk_url_kwarg))
+        return context
+
