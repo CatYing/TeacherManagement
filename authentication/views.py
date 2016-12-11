@@ -96,4 +96,10 @@ class TeacherInfoUpdateView(UserPassesTestMixin, FrontMixin, UpdateView):
         context['active'] = 'detail'
         return context
 
+    def form_valid(self, form):
+        for student in MyUser.objects.filter(identity=1):
+            student.studentnotificationsonteacher.unread_count += 1
+            student.studentnotificationsonteacher.save()
+        return super(TeacherInfoUpdateView, self).form_valid(form)
+
 

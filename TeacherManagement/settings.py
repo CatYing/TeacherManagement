@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'authentication',
     'appointment',
     'link',
+    'notification',
 ]
 
 MIDDLEWARE = [

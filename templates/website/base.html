@@ -33,18 +33,16 @@
         </li>
         <li class="" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages"
                                            class="dropdown-toggle"><i class="icon icon-envelope"></i> <span
-                class="text">通知</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+                class="text">通知</span> <span class="label label-important">{{ noti_num }}</span> <b class="caret"></b></a>
             {% if myuser.identity == 1 %}
                 <ul class="dropdown-menu">
                     <li><a class="sAdd" title="" href="#"><i class="icon-plus"></i>教师信息更新</a></li>
                     <li class="divider"></li>
                     <li><a class="sInbox" title="" href="#"><i class="icon-envelope"></i>预约进度更新</a></li>
-                    <li class="divider"></li>
                 </ul>
             {% else %}
                 <ul class="dropdown-menu">
-                    <li><a class="sAdd" title="" href="#"><i class="icon-plus"></i>预约信息</a></li>
-                    <li class="divider"></li>
+                    <li><a class="sAdd" title="" href="{% url 'tea-list' %}"><i class="icon-plus"></i>预约信息</a></li>
                 </ul>
             {% endif %}
         </li>

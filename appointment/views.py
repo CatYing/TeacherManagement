@@ -7,6 +7,7 @@ from django.views.generic import ListView, TemplateView
 from django.views.generic import UpdateView
 
 from appointment.models import *
+from notification.models import StudentNotificationOnAppointment, StudentNotificationsOnTeacher
 from website.mixin import FrontMixin
 import datetime
 
@@ -22,12 +23,19 @@ class TeacherListView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin, ListV
         return self.request.user.myuser.identity == 1
 
     def get_queryset(self):
+        if self.request.GET.has_key('name'):
+            return MyUser.objects.filter(identity=2, name__contains=self.request.GET.get('name'))
         return MyUser.objects.filter(identity=2)
 
     def get_context_data(self, **kwargs):
         context = super(TeacherListView, self).get_context_data(**kwargs)
         context['active'] = 'list'
         return context
+
+    def get(self, request, *args, **kwargs):
+        self.request.user.myuser.studentnotificationsonteacher.unread_count = 0
+        self.request.user.myuser.studentnotificationsonteacher.save()
+        return super(TeacherListView, self).get(request, *args, **kwargs)
 
 
 class MyUserDetailView(LoginRequiredMixin, FrontMixin, DetailView):
@@ -88,6 +96,11 @@ class StudentAppointmentListView(LoginRequiredMixin, UserPassesTestMixin, FrontM
         context['active'] = 'appointment'
         return context
 
+    def get(self, request, *args, **kwargs):
+        self.request.user.myuser.studentnotificationonappointment.unread_count = 0
+        self.request.user.myuser.studentnotificationonappointment.save()
+        return super(StudentAppointmentListView, self).get(request, *args, **kwargs)
+
 
 class TeacherAppointmentListView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin, ListView):
     template_name = 'appointment/tea-app-list.html'
@@ -112,6 +125,8 @@ class TeacherAppointmentListView(LoginRequiredMixin, UserPassesTestMixin, FrontM
             appointment = AppointmentObject.objects.get(pk=int(self.request.GET.get('pk')))
             if self.request.GET.get('reply') == '1':
                 appointment.result = 1
+                appointment.student.studentnotificationonappointment.unread_count += 1
+                appointment.student.studentnotificationonappointment.save()
                 appointment.save()
             elif self.request.GET.get('reply') == '0':
                 appointment.result = 0
