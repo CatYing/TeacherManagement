@@ -14,30 +14,30 @@ class TimePeriod(models.Model):
         return self.name
 
 
-# 星期*
-class Day(models.Model):
-    name = models.CharField(max_length=32)
-
-    def __unicode__(self):
-        return self.name
-
-
-# 周数
-class Week(models.Model):
-    name = models.CharField(max_length=32)
-
-    def __unicode__(self):
-        return u'第 %s' % self.name + u'周'
-
-
 # 老师的时间段
 class TeacherPeriod(models.Model):
-    week = models.ForeignKey(Week)
-    day = models.ForeignKey(Day)
+    date = models.DateField(blank=True, null=True)
     time_period = models.ForeignKey(TimePeriod)
     teacher = models.ForeignKey(MyUser)
     free = models.BooleanField()
 
     def __unicode__(self):
-        return self.week + u'的' + self.day + u'的' + self.time_period
+        return unicode(self.date) + u'的第' + self.time_period.name + u'节'
 
+
+class TeacherEnroll(models.Model):
+    teacher = models.OneToOneField(MyUser)
+
+    def __unicode__(self):
+        return self.teacher.name
+
+
+# 预约对象
+class AppointmentObject(models.Model):
+    student = models.ForeignKey(MyUser)
+    teacher_enroll = models.ForeignKey(TeacherEnroll)
+    teacher_period = models.ForeignKey(TeacherPeriod)
+    result = models.NullBooleanField(blank=True, null=True)
+
+    def __unicode__(self):
+        return self.student.name + u'对' + self.teacher_enroll.teacher.name + u'预约'
