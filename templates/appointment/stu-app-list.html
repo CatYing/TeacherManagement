@@ -1,0 +1,50 @@
+{% extends 'website/base.html' %}
+{% load staticfiles %}
+{% block title %}当前预约{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title"><span class="icon"> <i class="icon-th"></i> </span>
+                        <h5>教师列表</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>预约老师</th>
+                                <th>邮箱</th>
+                                <th>手机</th>
+                                <th>办公地点</th>
+                                <th>预约时间</th>
+                                <th>教师回应</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for appointment in app_list %}
+                                <tr class="odd gradeX">
+                                    <td>{{ appointment.teacher_enroll.teacher.name }}</td>
+                                    <td>{{ appointment.teacher_enroll.teacher.teacherinfo.e_mail }}</td>
+                                    <td>{{ appointment.teacher_enroll.teacher.teacherinfo.cellphone }}</td>
+                                    <td>{{ appointment.teacher_enroll.teacher.teacherinfo.address }}</td>
+                                    <td>{{ appointment.teacher_period }}</td>
+                                    {% if appointment.result == 1 %}
+                                        <td>已通过</td>
+                                    {% elif appointment.result == 0 %}
+                                        <td>已拒绝</td>
+                                    {% else %}
+                                        <td>尚未答复</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

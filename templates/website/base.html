@@ -60,7 +60,13 @@
     <ul>
         <li id="index"><a href="{% url 'index' %}"><i class="icon icon-home"></i> <span>首页</span></a></li>
         <li id="list"><a href="{% url 'list' %}"><i class="icon icon-signal"></i><span>教师列表</span></a></li>
-        <li id="history"><a href=""><i class="icon icon-inbox"></i> <span>查看当前预约</span></a></li>
+        {% if myuser.identity == 1 %}
+            <li id="appointment"><a href="{% url 'stu-list' %}"><i class="icon icon-inbox"></i> <span>查看当前预约</span></a>
+            </li>
+        {% else %}
+            <li id="appointment"><a href="{% url 'tea-list' %}"><i class="icon icon-inbox"></i> <span>查看当前预约</span></a>
+            </li>
+        {% endif %}
         <li id="detail"><a href="{% url 'detail' %}"><i class="icon icon-th"></i> <span>个人资料</span></a></li>
         <li class="submenu"><a href="#"><i class="icon icon-th-list"></i> <span>友情链接</span></a>
             <ul>

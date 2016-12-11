@@ -37,7 +37,7 @@ class AppointmentObject(models.Model):
     student = models.ForeignKey(MyUser)
     teacher_enroll = models.ForeignKey(TeacherEnroll)
     teacher_period = models.ForeignKey(TeacherPeriod)
-    result = models.NullBooleanField(blank=True, null=True)
+    result = models.IntegerField(default=-1)
 
     def __unicode__(self):
         return self.student.name + u'对' + self.teacher_enroll.teacher.name + u'预约'

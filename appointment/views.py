@@ -1,8 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.urlresolvers import reverse_lazy
+from django.http import JsonResponse
 from django.views.generic import CreateView
 from django.views.generic import DetailView
 from django.views.generic import ListView, TemplateView
+from django.views.generic import UpdateView
+
 from appointment.models import *
 from website.mixin import FrontMixin
 import datetime
@@ -50,7 +53,7 @@ class AppointmentCreateView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin,
     def test_func(self):
         return self.request.user.myuser.identity == 1 and AppointmentObject.objects.filter(student=self.request.user.myuser,
                                                                                            teacher_enroll=MyUser.objects.get(pk=self.kwargs.get(self.pk_url_kwarg)).teacherenroll,
-                                                                                           result=True
+                                                                                           result=1
                                                                                            ).count() == 0
 
     def get_context_data(self, **kwargs):
@@ -66,4 +69,55 @@ class AppointmentCreateView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin,
         form.instance.teacher_period = TeacherPeriod.objects.get(pk=int(self.request.POST.get('teacher_period')))
         return super(AppointmentCreateView, self).form_valid(form)
 
+
+class StudentAppointmentListView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin, ListView):
+    template_name = 'appointment/stu-app-list.html'
+    model = AppointmentObject
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'denied'
+    context_object_name = 'app_list'
+
+    def test_func(self):
+        return self.request.user.myuser.identity == 1
+
+    def get_queryset(self):
+        return AppointmentObject.objects.filter(student=self.request.user.myuser)
+
+    def get_context_data(self, **kwargs):
+        context = super(StudentAppointmentListView, self).get_context_data(**kwargs)
+        context['active'] = 'appointment'
+        return context
+
+
+class TeacherAppointmentListView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin, ListView):
+    template_name = 'appointment/tea-app-list.html'
+    model = AppointmentObject
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'denied'
+    context_object_name = 'app_list'
+
+    def test_func(self):
+        return self.request.user.myuser.identity == 2
+
+    def get_queryset(self):
+        return AppointmentObject.objects.filter(teacher_enroll=self.request.user.myuser.teacherenroll)
+
+    def get_context_data(self, **kwargs):
+        context = super(TeacherAppointmentListView, self).get_context_data(**kwargs)
+        context['active'] = 'appointment'
+        return context
+
+    def get(self, request, *args, **kwargs):
+        if self.request.GET.has_key('pk'):
+            appointment = AppointmentObject.objects.get(pk=int(self.request.GET.get('pk')))
+            if self.request.GET.get('reply') == '1':
+                appointment.result = 1
+                appointment.save()
+            elif self.request.GET.get('reply') == '0':
+                appointment.result = 0
+                for app in AppointmentObject.objects.filter(teacher_period=appointment.teacher_period):
+                    app.result = 0
+                    app.save()
+                appointment.save()
+        return super(TeacherAppointmentListView, self).get(request, *args, **kwargs)
 
