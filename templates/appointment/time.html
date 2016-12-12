@@ -1,0 +1,47 @@
+{% extends 'website/base.html' %}
+{% load staticfiles %}
+{% block title %}设定时间段{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="widget-box">
+                    <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
+                        <h5>Personal-info</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <form method="post" class="form-horizontal">
+                            {% csrf_token %}
+                            <div class="control-group">
+                                <label class="control-label">日期：</label>
+                                <div class="controls">
+                                    <input type="date" class="span11" name="date"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">时间段 :</label>
+                                <div class="controls">
+                                    <select name="time_period" class="span11">
+                                        {% for period in time %}
+                                            <option value="{{ period.pk }}">{{ period.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">是否空闲</label>
+                                <div class="controls">
+                                    <input type="checkbox" class="span11" name="free"/>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+{% endblock %}

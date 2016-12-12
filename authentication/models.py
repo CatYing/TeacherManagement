@@ -38,7 +38,7 @@ class TeacherInfo(models.Model):
     cellphone = models.CharField(max_length=64, blank=True)
     cell_private = models.BooleanField(default=False)
     address = models.CharField(max_length=256)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     myuser = models.OneToOneField(MyUser)
 
     def __unicode__(self):

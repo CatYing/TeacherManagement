@@ -22,7 +22,8 @@
             <div class="controls">
                 <div class="main_input_box">
                     <span class="add-on bg_lg"><i class="icon-user"></i></span><input type="text"
-                                                                                      placeholder="Username" name="username"/>
+                                                                                      placeholder="Username"
+                                                                                      name="username"/>
                 </div>
             </div>
         </div>
@@ -30,11 +31,13 @@
             <div class="controls">
                 <div class="main_input_box">
                     <span class="add-on bg_ly"><i class="icon-lock"></i></span><input type="password"
-                                                                                      placeholder="Password" name="password"/>
+                                                                                      placeholder="Password"
+                                                                                      name="password"/>
                 </div>
             </div>
         </div>
         <div class="form-actions">
+            <span class="pull-left"> <a href="{% url 'register' %}" class="btn btn-danger">注册</a></span>
             <span class="pull-right"> <button type="submit" class="btn btn-success">Login</button></span>
         </div>
     </form>

@@ -1,0 +1,191 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <title>注册</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap-responsive.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/matrix-login.css' %}"/>
+    <link href="{% static 'font-awesome/css/font-awesome.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/google.css' %}" rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+<div id="loginbox">
+    <form id="loginform" class="form-vertical student" method="POST">
+        {% csrf_token %}
+        <input type="text" name="tag" value="0" style="display: none">
+        <div class="control-group normal_text"><h3 class="text-center">学生注册</h3></div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="text" placeholder="用户名" name="username"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="password" placeholder="密码" name="password"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="text" placeholder="姓名" name="name"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="text" placeholder="学号" name="student_id"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="text" placeholder="邮箱" name="e_mail"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="text" placeholder="手机号" name="cellphone"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="text" placeholder="学院" name="college"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="text" placeholder="年级" name="grade"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <span class="pull-left"> <a class="btn btn-success" id="to_teacher">切换身份</a></span>
+            <span class="pull-right"> <button type="submit" class="btn btn-success">Submit</button></span>
+        </div>
+
+        <div class="form-actions">
+            <span class="pull-right"> <button type="submit" class="btn btn-success">登录</button></span>
+        </div>
+    </form>
+
+    <form id="loginform" class="form-vertical teacher" method="POST" style="display: none">
+        {% csrf_token %}
+        <input type="text" name="tag" value="1" style="display: none">
+
+        <div class="control-group normal_text"><h3 class="text-center">教师注册</h3></div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="text" placeholder="用户名" name="username"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="password" placeholder="密码" name="password"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="text" placeholder="姓名" name="name"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="text" placeholder="工号" name="teacher_id"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="text" placeholder="邮箱" name="e_mail"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="text" placeholder="电话" name="cellphone"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <input type="text" placeholder="办公地点" name="address"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <span class="pull-left"> <a class="btn btn-success" id="to_student">切换身份</a></span>
+            <span class="pull-right"> <button type="submit" class="btn btn-success">Submit</button></span>
+        </div>
+
+        <div class="form-actions">
+            <span class="pull-right"> <button type="submit" class="btn btn-success">登录</button></span>
+        </div>
+
+    </form>
+
+</div>
+
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/matrix.login.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('#to_teacher').click(function () {
+            $('.student').hide();
+            $('.teacher').show();
+        });
+
+        $('#to_student').click(function () {
+            $('.teacher').hide();
+            $('.student').show();
+        });
+
+    })
+</script>
+</body>
+
+</html>

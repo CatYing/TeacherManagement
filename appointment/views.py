@@ -130,9 +130,52 @@ class TeacherAppointmentListView(LoginRequiredMixin, UserPassesTestMixin, FrontM
                 appointment.save()
             elif self.request.GET.get('reply') == '0':
                 appointment.result = 0
+                appointment.student.studentnotificationonappointment.unread_count += 1
+                appointment.student.studentnotificationonappointment.save()
                 for app in AppointmentObject.objects.filter(teacher_period=appointment.teacher_period):
                     app.result = 0
                     app.save()
                 appointment.save()
         return super(TeacherAppointmentListView, self).get(request, *args, **kwargs)
 
+
+class TeacherPeriodCreateView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin, CreateView):
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'denied'
+    model = TeacherPeriod
+    fields = ['date', 'free']
+    template_name = 'appointment/time.html'
+    success_url = reverse_lazy('tea-list')
+
+    def test_func(self):
+        return self.request.user.myuser.identity == 2
+
+    def form_valid(self, form):
+        form.instance.time_period = TimePeriod.objects.get(pk=int(self.request.POST.get('time_period')))
+        form.instance.teacher = self.request.user.myuser
+        return super(TeacherPeriodCreateView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(TeacherPeriodCreateView, self).get_context_data(**kwargs)
+        context['active'] = 'time'
+        context['time'] = TimePeriod.objects.all()
+        return context
+
+
+class TeacherPeriodListView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin, ListView):
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'denied'
+    model = TeacherPeriod
+    template_name = 'appointment/admin-time.html'
+    context_object_name = 'time_list'
+
+    def test_func(self):
+        return self.request.user.myuser.identity == 2
+
+    def get_queryset(self):
+        return TeacherPeriod.objects.filter(teacher=self.request.user.myuser, date__gte=datetime.date.today())
+
+    def get_context_data(self, **kwargs):
+        context = super(TeacherPeriodListView, self).get_context_data(**kwargs)
+        context['active'] = 'admin-time'
+        return context

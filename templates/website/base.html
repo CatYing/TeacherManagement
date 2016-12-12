@@ -33,12 +33,14 @@
         </li>
         <li class="" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages"
                                            class="dropdown-toggle"><i class="icon icon-envelope"></i> <span
-                class="text">通知</span> <span class="label label-important">{{ noti_num }}</span> <b class="caret"></b></a>
+                class="text">通知</span> {% if noti_num %}
+            <span class="label label-important">{{ noti_num }}</span>{% endif %} <b class="caret"></b></a>
             {% if myuser.identity == 1 %}
                 <ul class="dropdown-menu">
-                    <li><a class="sAdd" title="" href="#"><i class="icon-plus"></i>教师信息更新</a></li>
+                    <li><a class="sAdd" title="" href="#"><i class="icon-plus"></i>教师信息更新 &nbsp; {{ tea_num }}</a></li>
                     <li class="divider"></li>
-                    <li><a class="sInbox" title="" href="#"><i class="icon-envelope"></i>预约进度更新</a></li>
+                    <li><a class="sInbox" title="" href="#"><i class="icon-envelope"></i>预约进度更新 &nbsp; {{ app_num }}</a>
+                    </li>
                 </ul>
             {% else %}
                 <ul class="dropdown-menu">
@@ -62,8 +64,10 @@
             <li id="appointment"><a href="{% url 'stu-list' %}"><i class="icon icon-inbox"></i> <span>查看当前预约</span></a>
             </li>
         {% else %}
-            <li id="appointment"><a href="{% url 'tea-list' %}"><i class="icon icon-inbox"></i> <span>查看当前预约</span></a>
-            </li>
+            <li id="appointment"><a href="{% url 'tea-list' %}"><i class="icon icon-inbox"></i> <span>查看当前预约</span></a></li>
+            <li id="time"><a href="{% url 'time' %}"><i class="icon icon-inbox"></i> <span>设置空闲时段</span></a></li>
+            <li id="admin-time"><a href="{% url 'admin_time' %}"><i class="icon icon-inbox"></i> <span>查看空闲时段</span></a></li>
+
         {% endif %}
         <li id="detail"><a href="{% url 'detail' %}"><i class="icon icon-th"></i> <span>个人资料</span></a></li>
         <li class="submenu"><a href="#"><i class="icon icon-th-list"></i> <span>友情链接</span></a>

@@ -19,7 +19,7 @@ class TeacherPeriod(models.Model):
     date = models.DateField(blank=True, null=True)
     time_period = models.ForeignKey(TimePeriod)
     teacher = models.ForeignKey(MyUser)
-    free = models.BooleanField()
+    free = models.BooleanField(default=False)
 
     def __unicode__(self):
         return unicode(self.date) + u'的第' + self.time_period.name + u'节'

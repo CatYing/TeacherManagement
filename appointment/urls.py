@@ -7,4 +7,6 @@ urlpatterns = [
     url(r'^free-time/(?P<pk>[0-9]+)', views.AppointmentCreateView.as_view(), name='preview'),
     url(r'stu-app-list/', views.StudentAppointmentListView.as_view(), name='stu-list'),
     url(r'tea-app-list/', views.TeacherAppointmentListView.as_view(), name='tea-list'),
+    url(r'time/', views.TeacherPeriodCreateView.as_view(), name='time'),
+    url(r'admin-time', views.TeacherPeriodListView.as_view(), name='admin_time'),
 ]

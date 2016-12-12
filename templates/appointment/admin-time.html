@@ -1,0 +1,35 @@
+{% extends 'website/base.html' %}
+{% load staticfiles %}
+{% block title %}查看空闲时段{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+        <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title"><span class="icon"> <i class="icon-th"></i> </span>
+                        <h5>当前空闲时段</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>节数</th>
+                                <th>是否空闲</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for period in time_list %}
+                                <tr class="odd gradeX">
+                                    <td>{{ period.date }}</td>
+                                    <td>{{ period.time_period }}</td>
+                                    <td>{% if period.free %}是{% else %}否{% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+{% endblock %}
