@@ -18,6 +18,7 @@ Django 版本1.10
 
 ### 3、鸣谢
 [CommunityManagement](https://github.com/yumendy/CommunityManagement)
+
 这是一只有故事的喵，你可以去他的博客[听雨轩](http://yumendy.com)投喂他
 
 ### 4、后续开发
