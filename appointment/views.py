@@ -59,10 +59,7 @@ class AppointmentCreateView(LoginRequiredMixin, UserPassesTestMixin, FrontMixin,
     success_url = reverse_lazy('list')
 
     def test_func(self):
-        return self.request.user.myuser.identity == 1 and AppointmentObject.objects.filter(student=self.request.user.myuser,
-                                                                                           teacher_enroll=MyUser.objects.get(pk=self.kwargs.get(self.pk_url_kwarg)).teacherenroll,
-                                                                                           result=1
-                                                                                           ).count() == 0
+        return self.request.user.myuser.identity == 1
 
     def get_context_data(self, **kwargs):
         context = super(AppointmentCreateView, self).get_context_data(**kwargs)

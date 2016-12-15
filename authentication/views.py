@@ -54,8 +54,8 @@ def register(request):
                 teacher_id = request.POST.get('teacher_id', '')
                 e_mail = request.POST.get('e_mail', '')
                 cellphone = request.POST.get('cellphone', '')
-                address = request.POST.get('grade', '')
-                if username and password and name and teacher_id and e_mail and cellphone and address and description:
+                address = request.POST.get('address', '')
+                if username and password and name and teacher_id and e_mail and cellphone and address:
                     new_user = User.objects.create_user(username=username, password=password)
                     new_user.save()
                     new_myuser = MyUser(
