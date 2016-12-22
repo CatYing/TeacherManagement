@@ -10,6 +10,7 @@ from django.views.generic import DetailView, UpdateView
 from authentication.models import *
 from notification.models import StudentNotificationsOnTeacher, StudentNotificationOnAppointment
 from website.mixin import FrontMixin
+from appointment.models import TeacherEnroll
 
 
 def login(request):
@@ -79,6 +80,10 @@ def register(request):
                     new_stuonapp = StudentNotificationOnAppointment(
                         myuser=new_myuser
                     )
+                    new_teacher_enroll = TeacherEnroll(
+                        teacher=new_myuser
+                    )
+                    new_teacher_enroll.save()
                     new_stuonapp.save()
             elif request.POST.get('tag') == '0':
                 username = request.POST.get('username', '')
